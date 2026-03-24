@@ -39,9 +39,6 @@
         .hero-text-protection { text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 60px rgba(0, 0, 0, 0.6); }
         .hero-content { position: relative; z-index: 10; width: 100%; }
 
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 12px; border: none; }
-
         .chart-wrapper { position: relative; padding-bottom: 55%; height: 0; overflow: hidden; border-radius: 1.5rem; }
         .chart-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
@@ -60,41 +57,14 @@
         }
         .input-dark:focus { border-color: #38bdf8; box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
         
-        .tab-btn {
-            padding: 0.4rem 0.8rem;
-            border-radius: 0.5rem;
-            font-weight: bold;
-            font-size: 0.75rem;
-            transition: all 0.2s;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .tab-btn.active { background: #38bdf8; color: #0f172a; border-color: #38bdf8; }
-
-        /* 性格雷達按鈕專屬樣式 */
-        .emotion-btn {
-            flex: 1;
-            padding: 1.25rem 0.5rem;
-            border-radius: 1.25rem;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(30, 41, 59, 0.5);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
-        .emotion-btn:hover { background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.5); transform: translateY(-4px); }
-        .emotion-btn.selected { background: rgba(56, 189, 248, 0.2); border-color: #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.3); transform: scale(1.05); }
-        .emotion-btn i { font-size: 1.75rem; }
-
-        /* 文章精華裝飾 */
         .article-card {
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
-        .article-card:hover { transform: translateY(-10px); border-color: rgba(56, 189, 248, 0.4); }
+        .article-card:hover { transform: translateY(-10px); border-color: rgba(56, 189, 248, 0.4); background: rgba(30, 41, 59, 0.9); }
     </style>
 </head>
 <body>
@@ -103,7 +73,7 @@
     <nav class="fixed w-full z-50 glass-effect">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <a href="https://www.youtube.com/@alims1026" target="_blank" class="text-red-500 hover:text-red-400 transition-transform hover:scale-110">
+                <a href="https://www.youtube.com/@alims1026?sub_confirmation=1" target="_blank" class="text-red-500 hover:text-red-400 transition-transform hover:scale-110">
                     <i class="fab fa-youtube text-2xl"></i>
                 </a>
                 <div class="text-xl md:text-2xl font-bold gradient-text tracking-tighter uppercase">
@@ -112,18 +82,17 @@
             </div>
             <div class="hidden md:flex space-x-8 text-sm font-medium">
                 <a href="#home" class="hover:text-blue-400 transition">首頁</a>
-                <a href="#ai-tools" class="hover:text-blue-400 transition text-blue-400">✨ AI 實驗室</a>
-                <a href="#articles" class="hover:text-blue-400 transition">文章精華</a>
+                <a href="#ai-tools" class="hover:text-blue-400 transition">✨ AI 實驗室</a>
+                <a href="#articles" class="hover:text-blue-400 transition">方格子專欄</a>
                 <a href="#tools" class="hover:text-blue-400 transition">策略工具</a>
-                <a href="#videos" class="hover:text-blue-400 transition">影音精華</a>
             </div>
         </div>
     </nav>
 
-    <!-- 首頁 -->
+    <!-- 首頁 Hero 區塊 -->
     <section id="home" class="hero-section px-6">
         <div class="max-w-7xl mx-auto hero-content">
-            <div class="max-w-4xl hero-text-protection">
+            <div class="max-w-6xl hero-text-protection">
                 <div class="inline-flex items-center px-5 py-2 mb-8 bg-black/50 border border-blue-500/40 rounded-full text-blue-400 text-xs font-bold tracking-widest uppercase backdrop-blur-md">
                     <span class="flex h-2 w-2 rounded-full bg-blue-500 mr-2 animate-pulse"></span>
                     證券與期貨雙證照 | 深耕券商 20 載
@@ -133,12 +102,23 @@
                     專注於 <span class="text-white">ETF 策略</span><br>
                     <span class="text-3xl md:text-5xl font-light text-blue-200 mt-4 block">與長期投資策略的複利信仰</span>
                 </h1>
-                <div class="mt-12 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-                    <a href="#ai-tools" class="px-8 py-4 bg-indigo-600 rounded-2xl font-bold flex items-center justify-center hover:bg-indigo-700 transition transform hover:scale-105 shadow-2xl">
-                        ✨ 體驗 AI 投資診斷
+                <div class="mt-12 flex flex-col sm:flex-row flex-wrap gap-4">
+                    <!-- 1. 策略工具 -->
+                    <a href="#tools" class="px-8 py-4 bg-indigo-600 rounded-2xl font-bold flex items-center justify-center hover:bg-indigo-700 transition transform hover:scale-105 shadow-2xl">
+                        <i class="fas fa-calculator mr-3"></i> 策略工具
                     </a>
+                    <!-- 2. 追蹤方格子沙龍 -->
+                    <a href="https://vocus.cc/salon/alims1026" target="_blank" class="px-8 py-4 bg-slate-800 rounded-2xl font-bold flex items-center justify-center hover:bg-slate-700 transition transform hover:scale-105 shadow-2xl border border-white/10">
+                        <i class="fas fa-pen-nib mr-3 text-blue-400"></i> 追蹤方格子沙龍
+                    </a>
+                    <!-- 3. 訂閱 YouTube -->
                     <a href="https://www.youtube.com/@alims1026?sub_confirmation=1" target="_blank" class="px-8 py-4 bg-red-600 rounded-2xl font-bold flex items-center justify-center hover:bg-red-700 transition transform hover:scale-105 shadow-2xl">
-                        <i class="fab fa-youtube mr-3 text-xl"></i> 訂閱我的 YouTube 頻道
+                        <i class="fab fa-youtube mr-3"></i> 訂閱我的 YouTube 頻道
+                    </a>
+                    <!-- 4. 最新影片 (New) -->
+                    <a href="https://www.youtube.com/@alims1026/videos?view=0&sort=dd&shelf_id=1" target="_blank" class="px-8 py-4 bg-amber-500 rounded-2xl font-bold text-slate-900 flex items-center justify-center hover:bg-amber-400 transition transform hover:scale-105 shadow-2xl relative">
+                        <span class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-2 py-0.5 rounded-full animate-bounce">NEW</span>
+                        <i class="fas fa-play-circle mr-3"></i> 最新影片
                     </a>
                 </div>
             </div>
@@ -150,54 +130,25 @@
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-20">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6 italic">✨ JL AI 實驗室</h2>
-                <p class="text-gray-400">當市場劇烈波動時，您的心理直覺決定了您的資產終局</p>
+                <p class="text-gray-400">數據驅動決策，AI 輔助洞察市場動態</p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- 投資性格雷達 (按鈕版) -->
-                <div class="glass-effect p-8 rounded-[2.5rem] border border-blue-500/20 hover:border-blue-500/50 transition-all group">
-                    <div class="h-14 w-14 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6 text-blue-400 text-2xl">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2">✨ 投資性格雷達</h3>
-                    <p class="text-sm text-gray-400 mb-8">當看到帳戶在一天內大跌 20% 時，您的第一反應是？</p>
-                    
-                    <div class="grid grid-cols-3 gap-3 mb-8">
-                        <button onclick="selectEmotion('害怕', this)" class="emotion-btn" id="btn-fear">
-                            <i class="fas fa-sad-tear text-red-400"></i>
-                            <span class="text-sm font-bold">害怕</span>
-                        </button>
-                        <button onclick="selectEmotion('無感', this)" class="emotion-btn" id="btn-neutral">
-                            <i class="fas fa-meh text-gray-400"></i>
-                            <span class="text-sm font-bold">無感</span>
-                        </button>
-                        <button onclick="selectEmotion('興奮', this)" class="emotion-btn" id="btn-excited">
-                            <i class="fas fa-grin-stars text-green-400"></i>
-                            <span class="text-sm font-bold">興奮</span>
-                        </button>
-                    </div>
-
-                    <button onclick="analyzePersonality()" id="personalityActionBtn" class="w-full py-4 bg-blue-600/20 border border-blue-500/50 text-blue-400 rounded-xl font-bold hover:bg-blue-600 hover:text-white transition flex items-center justify-center opacity-50 cursor-not-allowed" disabled>
-                        <span id="personalityBtnText">請選擇以上心境</span>
-                        <div id="personalityLoading" class="ai-loading ml-2 hidden"></div>
-                    </button>
-                    
-                    <div id="personalityResult" class="mt-6 text-sm text-gray-300 hidden bg-blue-900/20 p-6 rounded-2xl border border-blue-500/20 leading-relaxed shadow-inner"></div>
-                </div>
-
                 <!-- 投資進化建議 -->
-                <div class="glass-effect p-8 rounded-[2.5rem] border border-indigo-500/20 hover:border-indigo-500/50 transition-all group">
+                <div class="glass-effect p-8 rounded-[2.5rem] border border-indigo-500/20 hover:border-indigo-500/50 transition-all group md:col-span-2">
                     <div class="h-14 w-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-6 text-indigo-400 text-2xl">
                         <i class="fas fa-magic"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-2">✨ 股票ETF投資進化建議</h3>
-                    <p class="text-sm text-gray-400 mb-6">輸入您的持倉組合，讓 AI 幫您檢視「複利底氣」</p>
-                    <input id="aiPortfolioInput" type="text" placeholder="例如：0050, 006208, NVDA..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-sm mb-4 outline-none focus:border-indigo-500 transition">
-                    <button onclick="optimizeStrategy()" class="w-full py-4 bg-indigo-600/20 border border-indigo-500/50 text-indigo-400 rounded-xl font-bold hover:bg-indigo-600 hover:text-white transition flex items-center justify-center">
-                        <span id="optimizeBtnText">生成進化建議</span>
-                        <div id="optimizeLoading" class="ai-loading ml-2 hidden"></div>
-                    </button>
-                    <div id="optimizeResult" class="mt-6 text-sm text-gray-300 hidden bg-indigo-900/20 p-6 rounded-2xl border border-blue-500/20 leading-relaxed"></div>
+                    <h3 class="text-2xl font-bold mb-2">✨ 股票 ETF 投資進化建議</h3>
+                    <p class="text-sm text-gray-400 mb-6">輸入您的持倉組合（例如：0050, 006208, QQQ），讓 AI 提供複利配置建議</p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-4">
+                        <input id="aiPortfolioInput" type="text" placeholder="輸入代號，如：0050, TQQQ, NVDA..." class="flex-grow bg-slate-900 border border-slate-700 rounded-xl p-4 text-sm outline-none focus:border-indigo-500 transition">
+                        <button onclick="optimizeStrategy()" class="px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-500 transition flex items-center justify-center min-w-[160px]">
+                            <span id="optimizeBtnText">生成進化建議</span>
+                            <div id="optimizeLoading" class="ai-loading ml-2 hidden"></div>
+                        </button>
+                    </div>
+                    <div id="optimizeResult" class="mt-6 text-sm text-gray-300 hidden bg-indigo-900/20 p-6 rounded-2xl border border-indigo-500/20 leading-relaxed"></div>
                 </div>
             </div>
         </div>
@@ -208,11 +159,11 @@
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
                 <div>
-                    <h2 class="text-4xl font-bold mb-4 italic">文章精華</h2>
-                    <p class="text-slate-400">深度解析市場邏輯，構建完整的投資體系</p>
+                    <h2 class="text-4xl font-bold mb-4 italic">方格子 vocus 專欄</h2>
+                    <p class="text-slate-400">深度的文字解析，建立更強大的投資底氣</p>
                 </div>
-                <a href="#" class="text-blue-400 hover:text-blue-300 text-sm font-bold flex items-center">
-                    查看所有文章 <i class="fas fa-arrow-right ml-2"></i>
+                <a href="https://vocus.cc/salon/alims1026" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm font-bold flex items-center">
+                    前往 JL 的方格子沙龍 <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>
 
@@ -220,33 +171,31 @@
                 <!-- 文章 1 -->
                 <div class="article-card glass-effect p-8 rounded-[2.5rem] border border-white/5 flex flex-col h-full">
                     <div class="text-blue-400 text-xs font-bold mb-4 uppercase tracking-widest">投資心法</div>
-                    <h3 class="text-xl font-bold mb-4 leading-snug">從 433 策略談「底氣」：為何你拿不住翻倍股？</h3>
-                    <p class="text-slate-400 text-sm mb-8 flex-grow">投資最難的不是選股，而是持有。當你的資產配置缺乏防護機制，任何風吹草動都會動搖你的信仰...</p>
+                    <h3 class="text-xl font-bold mb-4 leading-snug">433 策略：為何這是平凡人翻身的最好路徑？</h3>
+                    <p class="text-slate-400 text-sm mb-8 flex-grow">詳細拆解 40% 市值型、30% 槓桿與 30% 現金防護的底層邏輯...</p>
                     <div class="flex items-center justify-between pt-6 border-t border-white/5">
-                        <span class="text-xs text-slate-500">2026.03.15</span>
-                        <span class="text-blue-400 text-sm font-bold">閱讀全文 <i class="fas fa-chevron-right ml-1"></i></span>
+                        <span class="text-xs text-slate-500">vocus 沙龍精選</span>
+                        <a href="https://vocus.cc/salon/alims1026" target="_blank" class="text-blue-400 text-sm font-bold">閱讀全文 <i class="fas fa-chevron-right ml-1"></i></a>
                     </div>
                 </div>
-
                 <!-- 文章 2 -->
                 <div class="article-card glass-effect p-8 rounded-[2.5rem] border border-white/5 flex flex-col h-full">
-                    <div class="text-indigo-400 text-xs font-bold mb-4 uppercase tracking-widest">ETF 策略</div>
-                    <h3 class="text-xl font-bold mb-4 leading-snug">高股息 ETF 的甜蜜陷阱：你買的是股息還是本金？</h3>
-                    <p class="text-slate-400 text-sm mb-8 flex-grow">在追求高殖利率的同時，投資者往往忽視了總報酬率與填息能力。我們該如何挑選真正的優質 ETF...</p>
+                    <div class="text-indigo-400 text-xs font-bold mb-4 uppercase tracking-widest">實戰應用</div>
+                    <h3 class="text-xl font-bold mb-4 leading-snug">質押借貸全攻略：如何在維持率中活下來？</h3>
+                    <p class="text-slate-400 text-sm mb-8 flex-grow">如果你想動用槓桿，這篇是你絕對不能錯過的風險管理手冊...</p>
                     <div class="flex items-center justify-between pt-6 border-t border-white/5">
-                        <span class="text-xs text-slate-500">2026.03.10</span>
-                        <span class="text-indigo-400 text-sm font-bold">閱讀全文 <i class="fas fa-chevron-right ml-1"></i></span>
+                        <span class="text-xs text-slate-500">vocus 沙龍精選</span>
+                        <a href="https://vocus.cc/salon/alims1026" target="_blank" class="text-indigo-400 text-sm font-bold">閱讀全文 <i class="fas fa-chevron-right ml-1"></i></a>
                     </div>
                 </div>
-
                 <!-- 文章 3 -->
                 <div class="article-card glass-effect p-8 rounded-[2.5rem] border border-white/5 flex flex-col h-full">
-                    <div class="text-amber-400 text-xs font-bold mb-4 uppercase tracking-widest">市場分析</div>
-                    <h3 class="text-xl font-bold mb-4 leading-snug">面對 2026 劇烈波動：長期主義者的應對指南</h3>
-                    <p class="text-slate-400 text-sm mb-8 flex-grow">市場永遠存在雜訊，唯有建立在數據與邏輯之上的信仰，才能在劇烈波動中保持冷靜並伺機布局...</p>
+                    <div class="text-amber-400 text-xs font-bold mb-4 uppercase tracking-widest">複利信仰</div>
+                    <h3 class="text-xl font-bold mb-4 leading-snug">長期持有不是口號，而是建立在邏輯上的信心</h3>
+                    <p class="text-slate-400 text-sm mb-8 flex-grow">當市場大跌，唯有明白自己買的是什麼，你才拿得住...</p>
                     <div class="flex items-center justify-between pt-6 border-t border-white/5">
-                        <span class="text-xs text-slate-500">2026.03.05</span>
-                        <span class="text-amber-400 text-sm font-bold">閱讀全文 <i class="fas fa-chevron-right ml-1"></i></span>
+                        <span class="text-xs text-slate-500">vocus 沙龍精選</span>
+                        <a href="https://vocus.cc/salon/alims1026" target="_blank" class="text-amber-400 text-sm font-bold">閱讀全文 <i class="fas fa-chevron-right ml-1"></i></a>
                     </div>
                 </div>
             </div>
@@ -261,7 +210,7 @@
                 <p class="text-gray-400">數據驅動決策，信念成就未來</p>
             </div>
 
-            <!-- 動態圖表看板 -->
+            <!-- 圖表 -->
             <div class="mb-12">
                 <div class="glass-effect p-6 md:p-8 rounded-[3rem] border border-blue-500/20 shadow-2xl overflow-hidden">
                     <div class="chart-wrapper bg-slate-900/40 border border-white/5">
@@ -270,24 +219,15 @@
                 </div>
             </div>
 
-            <!-- 第一排：Beta 計算器 與 72 法則 -->
             <div class="grid lg:grid-cols-12 gap-8 mb-8">
-                <!-- 1. Beta 策略配比計算器 -->
+                <!-- Beta 計算器 -->
                 <div class="lg:col-span-8 glass-effect p-8 rounded-[3rem] border border-cyan-500/20 shadow-xl">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-                        <div class="flex items-center space-x-4">
-                            <div class="h-12 w-12 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400">
-                                <i class="fas fa-dna text-xl"></i>
-                            </div>
-                            <h3 class="text-xl font-bold">Beta 策略配比計算器</h3>
+                    <div class="flex items-center space-x-4 mb-8">
+                        <div class="h-12 w-12 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400">
+                            <i class="fas fa-dna text-xl"></i>
                         </div>
-                        <div class="flex space-x-1" id="beta_tabs">
-                            <button class="tab-btn active" onclick="setBetaStrategy(4,3,3, this)">433</button>
-                            <button class="tab-btn" onclick="setBetaStrategy(7,1,2, this)">712</button>
-                            <button class="tab-btn" onclick="setBetaStrategy(5,1,4, this)">514</button>
-                        </div>
+                        <h3 class="text-xl font-bold">Beta 策略配比計算器</h3>
                     </div>
-                    
                     <div class="grid md:grid-cols-2 gap-8 items-center">
                         <div class="space-y-6">
                             <div>
@@ -298,30 +238,26 @@
                                 <div>
                                     <label class="block text-[10px] text-gray-400 mb-1">原型 (x1)</label>
                                     <input type="number" id="beta_w1" value="40" class="input-dark text-sm p-2" oninput="calcBeta()">
-                                    <div class="text-[9px] text-cyan-400/70 mt-1" id="beta_amt_1">40萬</div>
                                 </div>
                                 <div>
                                     <label class="block text-[10px] text-gray-400 mb-1">槓桿 (x2)</label>
                                     <input type="number" id="beta_w2" value="30" class="input-dark text-sm p-2" oninput="calcBeta()">
-                                    <div class="text-[9px] text-cyan-400/70 mt-1" id="beta_amt_2">30萬</div>
                                 </div>
                                 <div>
                                     <label class="block text-[10px] text-gray-400 mb-1">防護 (x0)</label>
                                     <input type="number" id="beta_w0" value="30" class="input-dark text-sm p-2" oninput="calcBeta()">
-                                    <div class="text-[9px] text-cyan-400/70 mt-1" id="beta_amt_0">30萬</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-8 bg-cyan-500/10 rounded-[2rem] border border-cyan-500/20 text-center relative overflow-hidden">
-                            <div class="text-xs text-cyan-300 mb-1 uppercase tracking-widest">組合策略總 Beta</div>
+                        <div class="p-8 bg-cyan-500/10 rounded-[2rem] border border-cyan-500/20 text-center">
+                            <div class="text-xs text-cyan-300 mb-1">組合策略總 Beta</div>
                             <div class="text-6xl font-black text-cyan-400 tracking-tighter" id="beta_final_result">1.00</div>
-                            <div id="beta_warning" class="text-[10px] text-red-400 mt-2 hidden font-bold">⚠ 權重加總不等於 100%</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 2. 72 法則 -->
-                <div class="lg:col-span-4 glass-effect p-8 rounded-[3rem] border border-amber-500/20 shadow-xl flex flex-col justify-between">
+                <!-- 72 法則 -->
+                <div class="lg:col-span-4 glass-effect p-8 rounded-[3rem] border border-amber-500/20 shadow-xl">
                     <div class="flex items-center space-x-4 mb-6">
                         <div class="h-12 w-12 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400">
                             <i class="fas fa-bolt text-xl"></i>
@@ -334,97 +270,11 @@
                             <input type="number" id="rule72_rate" value="7.2" class="input-dark text-center font-bold" oninput="calcRule72()">
                         </div>
                         <div class="p-6 bg-amber-500/10 rounded-2xl border border-amber-500/20 text-center">
-                            <div class="text-[10px] text-amber-300 mb-1 uppercase">資產翻倍預計需</div>
+                            <div class="text-[10px] text-amber-300 mb-1">資產翻倍預計需</div>
                             <div class="text-5xl font-black text-amber-400" id="rule72_result">10.0</div>
                             <div class="text-xs text-amber-300">年</div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- 第二排：質押 與 複利 -->
-            <div class="grid lg:grid-cols-12 gap-8">
-                <!-- 3. 質押維持率 -->
-                <div class="lg:col-span-4 glass-effect p-8 rounded-[3rem] border border-red-500/20 shadow-xl">
-                    <div class="flex items-center space-x-4 mb-8">
-                        <div class="h-12 w-12 rounded-xl bg-red-500/20 flex items-center justify-center text-red-400">
-                            <i class="fas fa-shield-alt text-xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold">質押維持率</h3>
-                    </div>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">擔保品市值 (NT$)</label>
-                            <input type="number" id="loan_market" value="1000000" class="input-dark text-sm" oninput="calcLoan()">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">借貸總額 (NT$)</label>
-                            <input type="number" id="loan_amount" value="600000" class="input-dark text-sm" oninput="calcLoan()">
-                        </div>
-                        <div class="mt-4 p-5 rounded-2xl border text-center transition-all" id="loan_status_box">
-                            <div class="text-2xl font-black" id="loan_ratio">166.7%</div>
-                            <div class="text-xs uppercase tracking-widest font-bold" id="loan_status">安全</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4. 長線複利終值模擬 -->
-                <div class="lg:col-span-8 glass-effect p-8 rounded-[3rem] border border-blue-500/20 shadow-2xl">
-                    <div class="flex items-center space-x-4 mb-8">
-                        <div class="h-12 w-12 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400">
-                            <i class="fas fa-chart-line text-xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold">長線複利終值模擬</h3>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-8 items-center">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-[10px] text-gray-400 mb-1">初始金額</label>
-                                <input type="number" id="comp_init" value="1000000" class="input-dark text-sm" oninput="calcCompound()">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] text-gray-400 mb-1">每月投入</label>
-                                <input type="number" id="comp_monthly" value="20000" class="input-dark text-sm" oninput="calcCompound()">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] text-gray-400 mb-1">年化報酬 (%)</label>
-                                <input type="number" id="comp_rate" value="8" class="input-dark text-sm" oninput="calcCompound()">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] text-gray-400 mb-1">投資年限</label>
-                                <input type="number" id="comp_years" value="10" class="input-dark text-sm" oninput="calcCompound()">
-                            </div>
-                        </div>
-                        <div class="bg-blue-500/5 rounded-3xl border border-blue-500/10 p-6 text-center">
-                            <div class="text-[10px] text-blue-300 mb-1 uppercase tracking-widest">複利終值預估</div>
-                            <div class="text-4xl md:text-5xl font-black text-blue-400 tracking-tighter mb-2" id="comp_result">NT$ 5,823,456</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 影音精華 -->
-    <section id="videos" class="py-32 px-6">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold mb-16 text-center">JL 頻道精選</h2>
-            <div class="grid md:grid-cols-2 gap-16">
-                <div class="group">
-                    <div class="glass-effect p-4 rounded-3xl mb-6 shadow-2xl">
-                        <div class="video-container">
-                            <iframe src="https://www.youtube.com/embed/o6-7V-PR9pM" title="433策略" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold group-hover:text-blue-400 transition mb-3 px-2">揭開「4:3:3」策略在亂世中的保命密碼</h3>
-                </div>
-                <div class="group">
-                    <div class="glass-effect p-4 rounded-3xl mb-6 shadow-2xl">
-                        <div class="video-container">
-                            <iframe src="https://www.youtube.com/embed/IBsg2RLL3Fg" title="高股息策略" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold group-hover:text-blue-400 transition mb-3 px-2">拆解高股息：底氣不足時的投資毒藥？</h3>
                 </div>
             </div>
         </div>
@@ -432,24 +282,15 @@
 
     <footer class="py-20 text-center bg-slate-950 border-t border-white/5">
         <p class="text-gray-700 text-xs font-bold tracking-[0.4em] mb-4">&copy; 2026 JL INVESTOR (JL 投資說書人)</p>
+        <div class="flex justify-center space-x-8 mb-6">
+            <a href="https://vocus.cc/salon/alims1026" target="_blank" class="text-slate-500 hover:text-blue-400 transition">方格子 vocus</a>
+            <a href="https://www.youtube.com/@alims1026" target="_blank" class="text-slate-500 hover:text-red-500 transition">YouTube</a>
+        </div>
         <div class="text-indigo-400 font-extrabold italic text-xl">信心 • 信念 • 信仰</div>
     </footer>
 
     <script>
         const apiKey = ""; 
-        let currentEmotion = "";
-
-        // 性格雷達選擇
-        function selectEmotion(emotion, btn) {
-            currentEmotion = emotion;
-            document.querySelectorAll('.emotion-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            
-            const actionBtn = document.getElementById('personalityActionBtn');
-            actionBtn.disabled = false;
-            actionBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-            document.getElementById('personalityBtnText').innerText = `以「${emotion}」心境分析投資性格`;
-        }
 
         async function callGemini(prompt, systemPrompt = "", retryCount = 0) {
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
@@ -467,39 +308,13 @@
             }
         }
 
-        async function analyzePersonality() {
-            if (!currentEmotion) return;
-            const btnText = document.getElementById('personalityBtnText');
-            const loader = document.getElementById('personalityLoading');
-            const resultBox = document.getElementById('personalityResult');
-            
-            btnText.innerText = "JL 正在解讀您的投資心理...";
-            loader.classList.remove('hidden');
-            resultBox.classList.add('hidden');
-
-            const systemPrompt = `你是專業投資導師 JL。你的風格是穩重、洞察力極強，強調「信心、信念、信仰」與「4:3:3 策略」。
-            使用者選擇了他在市場大跌時的心境（害怕、無感、興奮）。
-            請根據這三種選擇給出深度建議：
-            1. 害怕：指出可能曝險過高，建議回歸原型資產，找回「底氣」。
-            2. 無感：最接近複利完全體，但需檢查是否過於僵化。
-            3. 興奮：獵人性格，小心貪婪，建議運用 4:3:3 策略將部分獲利轉為防護。
-            回答請控制在 180 字內。`;
-
-            const res = await callGemini(`我的心境是：${currentEmotion}`, systemPrompt);
-            
-            resultBox.innerHTML = `<strong>JL 的分析與建議：</strong><br><br>${res.replace(/\n/g, '<br>')}`;
-            resultBox.classList.remove('hidden');
-            btnText.innerText = "重新分析";
-            loader.classList.add('hidden');
-        }
-
         async function optimizeStrategy() {
             const input = document.getElementById('aiPortfolioInput').value;
             if (!input) return;
             const btnText = document.getElementById('optimizeBtnText');
             const loader = document.getElementById('optimizeLoading');
             const resultBox = document.getElementById('optimizeResult');
-            btnText.innerText = "JL 優化建議生成中...";
+            btnText.innerText = "優化建議生成中...";
             loader.classList.remove('hidden');
             resultBox.classList.add('hidden');
             const res = await callGemini(`持倉組合：${input}`, "你是專業投資導師 JL，請根據該組合提供進化建議。");
@@ -509,29 +324,12 @@
             loader.classList.add('hidden');
         }
 
-        // 策略工具計算邏輯
-        function setBetaStrategy(w1, w2, w0, btn) {
-            document.getElementById('beta_w1').value = w1 * 10;
-            document.getElementById('beta_w2').value = w2 * 10;
-            document.getElementById('beta_w0').value = w0 * 10;
-            document.querySelectorAll('#beta_tabs button').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            calcBeta();
-        }
-
         function calcBeta() {
-            const total = parseFloat(document.getElementById('beta_total_amount').value) || 0;
             const w1 = (parseFloat(document.getElementById('beta_w1').value) || 0) / 100;
             const w2 = (parseFloat(document.getElementById('beta_w2').value) || 0) / 100;
             const w0 = (parseFloat(document.getElementById('beta_w0').value) || 0) / 100;
             const finalBeta = (w1 * 1) + (w2 * 2) + (w0 * 0);
             document.getElementById('beta_final_result').innerText = finalBeta.toFixed(2);
-            document.getElementById('beta_amt_1').innerText = (total * w1 / 10000).toFixed(1) + "萬";
-            document.getElementById('beta_amt_2').innerText = (total * w2 / 10000).toFixed(1) + "萬";
-            document.getElementById('beta_amt_0').innerText = (total * w0 / 10000).toFixed(1) + "萬";
-            const warning = document.getElementById('beta_warning');
-            if (Math.abs((w1 + w2 + w0) - 1) > 0.01) warning.classList.remove('hidden');
-            else warning.classList.add('hidden');
         }
 
         function calcRule72() {
@@ -539,30 +337,7 @@
             document.getElementById('rule72_result').innerText = r > 0 ? (72 / r).toFixed(1) : "--";
         }
 
-        function calcCompound() {
-            const P = parseFloat(document.getElementById('comp_init').value) || 0;
-            const PMT = parseFloat(document.getElementById('comp_monthly').value) || 0;
-            const r = (parseFloat(document.getElementById('comp_rate').value) || 0) / 100 / 12;
-            const n = (parseFloat(document.getElementById('comp_years').value) || 0) * 12;
-            let FV = P * Math.pow(1 + r, n);
-            if (r > 0) FV += PMT * ((Math.pow(1 + r, n) - 1) / r);
-            else FV += PMT * n;
-            document.getElementById('comp_result').innerText = `NT$ ${Math.round(FV).toLocaleString()}`;
-        }
-
-        function calcLoan() {
-            const market = parseFloat(document.getElementById('loan_market').value) || 0;
-            const loan = parseFloat(document.getElementById('loan_amount').value) || 0;
-            const ratio = loan > 0 ? (market / loan) * 100 : 0;
-            document.getElementById('loan_ratio').innerText = `${ratio.toFixed(1)}%`;
-            const box = document.getElementById('loan_status_box');
-            const status = document.getElementById('loan_status');
-            if (ratio >= 160) { box.className = "mt-4 p-3 rounded-2xl border bg-emerald-500/10 border-emerald-500/20 text-emerald-400"; status.innerText = "安全"; }
-            else if (ratio >= 140) { box.className = "mt-4 p-3 rounded-2xl border bg-amber-500/10 border-amber-500/20 text-amber-400"; status.innerText = "警告"; }
-            else { box.className = "mt-4 p-3 rounded-2xl border bg-red-500/10 border-red-500/20 text-red-400"; status.innerText = "危險"; }
-        }
-
-        window.onload = () => { calcBeta(); calcRule72(); calcCompound(); calcLoan(); };
+        window.onload = () => { calcBeta(); calcRule72(); };
     </script>
 </body>
 </html>
