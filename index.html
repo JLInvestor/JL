@@ -65,6 +65,22 @@
             flex-direction: column;
         }
         .article-card:hover { transform: translateY(-10px); border-color: rgba(56, 189, 248, 0.4); background: rgba(30, 41, 59, 0.9); }
+
+        .strategy-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #94a3b8;
+            transition: all 0.2s;
+        }
+        .strategy-btn:hover {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: #38bdf8;
+            color: #38bdf8;
+        }
     </style>
 </head>
 <body>
@@ -103,19 +119,15 @@
                     <span class="text-3xl md:text-5xl font-light text-blue-200 mt-4 block">與長期投資策略的複利信仰</span>
                 </h1>
                 <div class="mt-12 flex flex-col sm:flex-row flex-wrap gap-4">
-                    <!-- 1. 策略工具 -->
                     <a href="#tools" class="px-8 py-4 bg-indigo-600 rounded-2xl font-bold flex items-center justify-center hover:bg-indigo-700 transition transform hover:scale-105 shadow-2xl">
                         <i class="fas fa-calculator mr-3"></i> 策略工具
                     </a>
-                    <!-- 2. 追蹤方格子沙龍 -->
                     <a href="https://vocus.cc/salon/alims1026" target="_blank" class="px-8 py-4 bg-slate-800 rounded-2xl font-bold flex items-center justify-center hover:bg-slate-700 transition transform hover:scale-105 shadow-2xl border border-white/10">
                         <i class="fas fa-pen-nib mr-3 text-blue-400"></i> 追蹤方格子沙龍
                     </a>
-                    <!-- 3. 訂閱 YouTube -->
                     <a href="https://www.youtube.com/@alims1026?sub_confirmation=1" target="_blank" class="px-8 py-4 bg-red-600 rounded-2xl font-bold flex items-center justify-center hover:bg-red-700 transition transform hover:scale-105 shadow-2xl">
                         <i class="fab fa-youtube mr-3"></i> 訂閱我的 YouTube 頻道
                     </a>
-                    <!-- 4. 最新影片 (New) -->
                     <a href="https://www.youtube.com/@alims1026/videos?view=0&sort=dd&shelf_id=1" target="_blank" class="px-8 py-4 bg-amber-500 rounded-2xl font-bold text-slate-900 flex items-center justify-center hover:bg-amber-400 transition transform hover:scale-105 shadow-2xl relative">
                         <span class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-2 py-0.5 rounded-full animate-bounce">NEW</span>
                         <i class="fas fa-play-circle mr-3"></i> 最新影片
@@ -211,7 +223,7 @@
             </div>
 
             <!-- 圖表 -->
-            <div class="mb-12">
+            <div class="mb-12 text-center">
                 <div class="glass-effect p-6 md:p-8 rounded-[3rem] border border-blue-500/20 shadow-2xl overflow-hidden">
                     <div class="chart-wrapper bg-slate-900/40 border border-white/5">
                         <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRGAw1mPyE7yCl9yz8GzPy-QTFOqgsv1Tvmc1Mc1ZIkIWAALchsiJn3lKa3mzCFfjME3zptKMzjXa9m/pubchart?oid=839335473&format=interactive"></iframe>
@@ -219,15 +231,23 @@
                 </div>
             </div>
 
-            <div class="grid lg:grid-cols-12 gap-8 mb-8">
+            <div class="grid lg:grid-cols-12 gap-8">
                 <!-- Beta 計算器 -->
-                <div class="lg:col-span-8 glass-effect p-8 rounded-[3rem] border border-cyan-500/20 shadow-xl">
-                    <div class="flex items-center space-x-4 mb-8">
-                        <div class="h-12 w-12 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400">
-                            <i class="fas fa-dna text-xl"></i>
+                <div class="lg:col-span-12 xl:col-span-8 glass-effect p-8 rounded-[3rem] border border-cyan-500/20 shadow-xl">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="h-12 w-12 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400">
+                                <i class="fas fa-dna text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Beta 策略配比計算器</h3>
                         </div>
-                        <h3 class="text-xl font-bold">Beta 策略配比計算器</h3>
+                        <div class="flex space-x-2 overflow-x-auto pb-2 md:pb-0">
+                            <button onclick="setStrategy(40, 30, 30)" class="strategy-btn">433 策略</button>
+                            <button onclick="setStrategy(70, 10, 20)" class="strategy-btn">712 策略</button>
+                            <button onclick="setStrategy(50, 10, 40)" class="strategy-btn">514 策略</button>
+                        </div>
                     </div>
+                    
                     <div class="grid md:grid-cols-2 gap-8 items-center">
                         <div class="space-y-6">
                             <div>
@@ -257,7 +277,7 @@
                 </div>
 
                 <!-- 72 法則 -->
-                <div class="lg:col-span-4 glass-effect p-8 rounded-[3rem] border border-amber-500/20 shadow-xl">
+                <div class="lg:col-span-12 xl:col-span-4 glass-effect p-8 rounded-[3rem] border border-amber-500/20 shadow-xl">
                     <div class="flex items-center space-x-4 mb-6">
                         <div class="h-12 w-12 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400">
                             <i class="fas fa-bolt text-xl"></i>
@@ -273,6 +293,55 @@
                             <div class="text-[10px] text-amber-300 mb-1">資產翻倍預計需</div>
                             <div class="text-5xl font-black text-amber-400" id="rule72_result">10.0</div>
                             <div class="text-xs text-amber-300">年</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 質押維持率計算機 (New) -->
+                <div class="lg:col-span-12 glass-effect p-8 rounded-[3rem] border border-red-500/20 shadow-xl mt-8">
+                    <div class="flex items-center space-x-4 mb-8">
+                        <div class="h-12 w-12 rounded-xl bg-red-500/20 flex items-center justify-center text-red-400">
+                            <i class="fas fa-hand-holding-usd text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">質押維持率與風險計算機</h3>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">目前擔保品市值 (NT$)</label>
+                                <input type="number" id="pledge_market_value" value="1000000" class="input-dark" oninput="calcPledge()">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">借貸金額 (NT$)</label>
+                                <input type="number" id="pledge_loan_amount" value="500000" class="input-dark" oninput="calcPledge()">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">目前單價 (每股/張)</label>
+                                <input type="number" id="pledge_current_price" value="100" class="input-dark" oninput="calcPledge()">
+                            </div>
+                        </div>
+                        
+                        <div class="p-8 bg-slate-900/60 rounded-[2rem] border border-white/5 flex flex-col justify-center items-center text-center">
+                            <div class="text-xs text-gray-400 mb-2">當前維持率</div>
+                            <div id="pledge_ratio_display" class="text-5xl font-black transition-colors duration-300">200.0%</div>
+                            <div id="pledge_status_label" class="mt-3 px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-green-500/20 text-green-400">安全水位</div>
+                        </div>
+
+                        <div class="p-8 bg-red-500/5 rounded-[2rem] border border-red-500/10 space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400">130% 斷頭價</span>
+                                <span id="pledge_call_price" class="text-lg font-bold text-red-400">65.00</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400">距離斷頭跌幅</span>
+                                <span id="pledge_drop_pct" class="text-lg font-bold text-amber-400">-35.0%</span>
+                            </div>
+                            <div class="pt-4 border-t border-white/5">
+                                <p class="text-[10px] text-gray-500 leading-relaxed italic">
+                                    註：維持率 = (市值 / 借貸金額) × 100%。當低於 130% 時將面臨追繳。
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -324,6 +393,13 @@
             loader.classList.add('hidden');
         }
 
+        function setStrategy(w1, w2, w0) {
+            document.getElementById('beta_w1').value = w1;
+            document.getElementById('beta_w2').value = w2;
+            document.getElementById('beta_w0').value = w0;
+            calcBeta();
+        }
+
         function calcBeta() {
             const w1 = (parseFloat(document.getElementById('beta_w1').value) || 0) / 100;
             const w2 = (parseFloat(document.getElementById('beta_w2').value) || 0) / 100;
@@ -337,7 +413,50 @@
             document.getElementById('rule72_result').innerText = r > 0 ? (72 / r).toFixed(1) : "--";
         }
 
-        window.onload = () => { calcBeta(); calcRule72(); };
+        function calcPledge() {
+            const marketVal = parseFloat(document.getElementById('pledge_market_value').value) || 0;
+            const loanVal = parseFloat(document.getElementById('pledge_loan_amount').value) || 0;
+            const currentPrice = parseFloat(document.getElementById('pledge_current_price').value) || 0;
+            
+            if (loanVal <= 0) {
+                document.getElementById('pledge_ratio_display').innerText = "0.0%";
+                return;
+            }
+
+            const ratio = (marketVal / loanVal) * 100;
+            const display = document.getElementById('pledge_ratio_display');
+            const label = document.getElementById('pledge_status_label');
+            
+            display.innerText = ratio.toFixed(1) + "%";
+            
+            // 視覺回饋
+            if (ratio >= 166) {
+                display.className = "text-5xl font-black text-green-400 tracking-tighter transition-colors";
+                label.innerText = "安全水位";
+                label.className = "mt-3 px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-green-500/20 text-green-400";
+            } else if (ratio >= 140) {
+                display.className = "text-5xl font-black text-amber-400 tracking-tighter transition-colors";
+                label.innerText = "警戒區域";
+                label.className = "mt-3 px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-amber-500/20 text-amber-400";
+            } else {
+                display.className = "text-5xl font-black text-red-500 tracking-tighter transition-colors";
+                label.innerText = "追繳風險";
+                label.className = "mt-3 px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-red-500/20 text-red-500";
+            }
+
+            // 斷頭價與跌幅
+            const callPrice = (loanVal * 1.3) / (marketVal / currentPrice);
+            document.getElementById('pledge_call_price').innerText = isFinite(callPrice) ? callPrice.toFixed(2) : "0.00";
+            
+            const dropPct = ((callPrice / currentPrice) - 1) * 100;
+            document.getElementById('pledge_drop_pct').innerText = isFinite(dropPct) ? dropPct.toFixed(1) + "%" : "0.0%";
+        }
+
+        window.onload = () => { 
+            calcBeta(); 
+            calcRule72(); 
+            calcPledge();
+        };
     </script>
 </body>
 </html>
