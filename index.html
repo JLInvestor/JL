@@ -311,6 +311,42 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 複利終值計算機 -->
+                <div class="lg:col-span-12 glass-effect p-8 rounded-[3rem] border border-indigo-500/20 shadow-xl mt-8">
+                    <div class="flex items-center space-x-4 mb-8">
+                        <div class="h-12 w-12 rounded-xl bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+                            <i class="fas fa-chart-line text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">長期複利終值計算機</h3>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="sm:col-span-2">
+                                <label class="block text-xs text-gray-400 mb-1">初始投入金額 (NT$)</label>
+                                <input type="number" id="compound_principal" value="1000000" class="input-dark" oninput="calcCompound()">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">預期年化報酬率 (%)</label>
+                                <input type="number" id="compound_rate" value="8" class="input-dark" oninput="calcCompound()">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">投資年數 (Year)</label>
+                                <input type="number" id="compound_years" value="10" class="input-dark" oninput="calcCompound()">
+                            </div>
+                        </div>
+                        
+                        <div class="p-10 bg-indigo-500/10 rounded-[2.5rem] border border-indigo-500/20 text-center relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4 opacity-10">
+                                <i class="fas fa-coins text-6xl"></i>
+                            </div>
+                            <div class="text-xs text-indigo-300 mb-2 font-bold uppercase tracking-wider">複利滾動後總金額 (含本金)</div>
+                            <div class="text-5xl font-black text-indigo-400 tracking-tighter mb-2" id="compound_final_result">$ 2,158,925</div>
+                            <div class="inline-block px-4 py-1 bg-indigo-500/20 rounded-full text-[10px] text-indigo-300 font-bold" id="compound_gain_info">總獲利: $ 1,158,925</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -390,10 +426,24 @@
             document.getElementById('pledge_buffer_cash').innerText = "$ " + (dropAmt > 0 ? dropAmt.toLocaleString(undefined, {maximumFractionDigits:0}) : "0");
         }
 
+        function calcCompound() {
+            const principal = parseFloat(document.getElementById('compound_principal').value) || 0;
+            const rate = parseFloat(document.getElementById('compound_rate').value) / 100 || 0;
+            const years = parseFloat(document.getElementById('compound_years').value) || 0;
+
+            // 複利公式: A = P(1 + r)^t
+            const finalAmount = principal * Math.pow((1 + rate), years);
+            const totalGain = finalAmount - principal;
+
+            document.getElementById('compound_final_result').innerText = "$ " + Math.round(finalAmount).toLocaleString();
+            document.getElementById('compound_gain_info').innerText = "總獲利: $ " + Math.round(totalGain).toLocaleString();
+        }
+
         window.onload = () => { 
             calcBeta(); 
             calcRule72(); 
             calcPledge();
+            calcCompound();
         };
     </script>
 </body>
